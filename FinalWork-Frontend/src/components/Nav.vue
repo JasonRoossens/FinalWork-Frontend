@@ -1,10 +1,9 @@
 <template>
     <div id="nav">
-      <router-link to="/releases" class="nav_btn">Home</router-link>
+      <router-link to="/releases" class="nav_btn">Releases</router-link>
       <router-link v-if="adminPage" to="/Admin" class="nav_btn">Manager</router-link>
-      <router-link to="/Overview" class="nav_btn">Overview</router-link>
-      <router-link to="/Reservation" class="nav_btn">Room</router-link>
-      <router-link to="/Login" class="nav_btn">Logout</router-link>
+      <router-link to="/Overview" class="nav_btn">Community</router-link>
+      <router-link to="/User" class="nav_btn">Account</router-link>
     </div>
   </template>
   

@@ -35,29 +35,16 @@ export default {
       <Navigation />
       <h1 class="title">Releases</h1>
       <div class="container">
-        <section class="reservationlist">
+        <section class="sneakerlist">
           <table class="table">
-            <thead>
-              <tr>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Colorway</th>
-                <th>Price</th>
-                <th>Images</th>
-                <th>Stylecode</th>
-              </tr>
-            </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.id">
-                <td>{{ item.brand }}</td>
-                <td>{{ item.model }}</td>
-                <td>{{ item.colorway }}</td>
-                <td>{{ item.price }}</td>
-                <td>
-                  <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image">
-                </td>
-                <td>{{ item.stylecode }}</td>
-              </tr>
+                <tr v-for="item in items" :key="item.id" @click="$router.push(`/sneakers/${item.id}`)" style="cursor: pointer;">
+  <td>
+    <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image">
+  </td>
+  <td>{{ item.brand }}</td>
+  <td>{{ item.model }}</td>
+</tr>
             </tbody>
           </table>
         </section>
