@@ -15,12 +15,11 @@ export default {
         password: this.password,
       }
       try {
-        //console.log(data)
         const response = await fetch('http://localhost:8080/users/login', {
           method: 'POST',
           headers: {
-            Accept: "application/json",
-            'Content-Type': 'application/json',  
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
         })
@@ -28,6 +27,9 @@ export default {
         if (response.ok) {
           console.log(responseData)
           router.push('/releases') // Redirect to '/releases' after successful login
+        } else {
+          // Show alert when login fails
+          alert('Invalid email or password');
         }
       } catch (error) {
         console.error(error)
@@ -39,6 +41,7 @@ export default {
 
 <template>
     <form @submit.prevent="fetchData">
+      <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
       <section id="container">
         <h1>Log in</h1>
         <h2>Log in with your account.</h2>
@@ -60,27 +63,58 @@ export default {
   </template>
   
   <style scoped>
+  @font-face {
+  font-family: 'LemonMilkRegular';
+  src: url('../assets/fonts/LEMONMILK-Regular.otf');
+}
+
+@font-face {
+  font-family: 'LemonMilkBold';
+  src: url('../assets/fonts/LEMONMILK-Bold.otf');
+}
+
   #container {
-    background-color: #f0f0f0;
+    background-color: #c4d663;;
     padding: 20px;
     text-align: center;
     width: 20%;
     margin: 0 auto;
   }
 
+  #bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
   h1 {
     font-size: 28px;
     margin-bottom: 10px;
+    color: black;
+    font-family: LemonMilkBold;
   }
   
   h2 {
     font-size: 16px;
     margin-bottom: 20px;
+    color: black;
+    font-family: LemonMilkRegular;
   }
   
   label {
     display: block;
     margin-bottom: 10px;
+    font-family: LemonMilkRegular;
+    color: black;
   }
   
   input {
@@ -93,7 +127,7 @@ export default {
   }
   
   button {
-    background-color: #c4d663;
+    background-color: black;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -101,20 +135,24 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    font-family: LemonMilkRegular;
+    opacity: 85%;
   }
   
   button:hover {
-    background-color: #c4d663;
+    background-color: black;
+    opacity: 100%;
   }
   
   .line {
     margin: 20px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid black;
   }
   
   .register {
     text-decoration: none;
-    color: #c4d663;
-    font-weight: bold;
+    color: black;
+    font-family: LemonMilkRegular;
+
   }
   </style>

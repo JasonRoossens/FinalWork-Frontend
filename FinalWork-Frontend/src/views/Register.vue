@@ -36,6 +36,7 @@ export default {
 </script>
 
 <template>
+  <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
     <form @submit.prevent="fetchData">
       <section id="container">
         <h1>Sign up</h1>
@@ -62,7 +63,7 @@ export default {
   
   <style scoped>
   #container {
-    background-color: #f0f0f0;
+    background-color: #c4d663;
     padding: 20px;
     text-align: center;
     width: 20%;
@@ -72,16 +73,37 @@ export default {
   h1 {
     font-size: 28px;
     margin-bottom: 10px;
+    color: black;
+    font-family: LemonMilkBold;
   }
   
   h2 {
     font-size: 16px;
     margin-bottom: 20px;
+    color: black;
+    font-family: LemonMilkRegular;
   }
+
+  #bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
   
   label {
     display: block;
     margin-bottom: 10px;
+    font-family: LemonMilkRegular;
+    color: black;
   }
   
   input {
@@ -94,7 +116,7 @@ export default {
   }
   
   button {
-    background-color: #c4d663;
+    background-color: black;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -102,20 +124,24 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    font-family: LemonMilkRegular;
+    opacity: 85%;
   }
   
   button:hover {
-    background-color: #c4d663;
+    background-color: black;
+    opacity: 100%;
   }
-
+  
   .line {
     margin: 20px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid black;
   }
   
   .login {
     text-decoration: none;
-    color: #c4d663;
+    color: black;
     font-weight: bold;
+    font-family: LemonMilkRegular;
   }
   </style>
