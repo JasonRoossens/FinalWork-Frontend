@@ -54,6 +54,8 @@ export default {
         <input v-model="password" type="password" name="psw" required>
   
         <button type="submit" class="createbtn">Create Account</button>
+        <div class="line"></div>
+        <router-link to="/login" class="login">Login</router-link>
       </section>
     </form>
   </template>
@@ -63,6 +65,8 @@ export default {
     background-color: #f0f0f0;
     padding: 20px;
     text-align: center;
+    width: 20%;
+    margin: 0 auto;
   }
   
   h1 {
@@ -102,5 +106,16 @@ export default {
   
   button:hover {
     background-color: #c4d663;
+  }
+
+  .line {
+    margin: 20px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .login {
+    text-decoration: none;
+    color: #c4d663;
+    font-weight: bold;
   }
   </style>

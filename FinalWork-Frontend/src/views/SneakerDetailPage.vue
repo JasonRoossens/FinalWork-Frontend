@@ -33,12 +33,13 @@ export default {
 <template>
     <div class="main">
       <Navigation />
+      <button @click="$router.push(`/releases`)" class="back-button">Back</button> 
       <div class="container">
         <div v-if="sneaker">
           <h1 class="title">{{ sneaker.brand }} {{ sneaker.model }}</h1>
           <div class="sneaker-details">
             <div class="sneaker-image">
-              <img :src="sneaker.images[0]" :alt="sneaker.brand" class="release-image" />
+              <img :src="sneaker.images[0]" :alt="sneaker.brand" class="releaseDetail-image" />
             </div>
             <div class="sneaker-info">
               <p><strong>Colorway:</strong> {{ sneaker.colorway }}</p>
@@ -62,7 +63,6 @@ export default {
 }
 
 .container {
-  background-color: #f2f2f2;
   padding: 20px;
   border-radius: 4px;
 }
@@ -87,12 +87,22 @@ export default {
   flex: 2;
 }
 
-.release-image {
-  width: 200px;
-  height: auto;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.releaseDetail-image {
+  width: 250px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
 }
+
+button {
+    background-color: #c4d663;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
 
 /* Include your existing styles here or add additional styles as needed */
 </style>

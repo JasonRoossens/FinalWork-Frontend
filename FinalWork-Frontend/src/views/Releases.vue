@@ -1,5 +1,29 @@
+<template>
+  <div class="main">
+    <div id="bg"><img src="../assets/images/bg.jpg" alt=""></div>
+    <Navigation />
+    <!-- <h1 class="title">Releases</h1> -->
+    <div class="container">
+      <section class="sneakerlist">
+        <div class="card-container">
+          <div v-for="item in items" :key="item.id" @click="$router.push(`/sneakers/${item.id}`)" class="card">
+            <div class="card-image">
+              <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image">
+            </div>
+            <div class="card-details">
+              <p class="brand">{{ item.brand }}</p>
+              <p class="model">{{ item.model }}</p>
+              <p class="countdown">{{ countdown }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</template>
+
 <script>
-import Navigation from '../components/Nav.vue'
+import Navigation from '../components/Nav.vue';
 
 export default {
   components: {
@@ -8,10 +32,14 @@ export default {
   data() {
     return {
       items: [],
+      releaseDate: '2023-06-17T00:00:00.000Z', // Set your desired release date here
+      countdown: '',
     };
   },
   mounted() {
     this.fetchData();
+    this.updateCountdown(); // Initial countdown update
+    setInterval(this.updateCountdown, 1000); // Update countdown every second
   },
   methods: {
     async fetchData() {
@@ -20,80 +48,124 @@ export default {
         const data = await response.json();
         if (response.ok) {
           this.items = data;
-          console.log(data)
+          console.log(data);
         }
       } catch (error) {
         console.error(error);
       }
     },
+    updateCountdown() {
+      const releaseDate = new Date(this.releaseDate);
+      const now = new Date();
+      const timeDiff = releaseDate - now;
+
+      if (timeDiff < 0) {
+        this.countdown = 'Released';
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      this.countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    },
   },
 };
 </script>
 
-<template>
-    <div class="main">
-      <Navigation />
-      <h1 class="title">Releases</h1>
-      <div class="container">
-        <section class="sneakerlist">
-          <table class="table">
-            <tbody>
-                <tr v-for="item in items" :key="item.id" @click="$router.push(`/sneakers/${item.id}`)" style="cursor: pointer;">
-  <td>
-    <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image">
-  </td>
-  <td>{{ item.brand }}</td>
-  <td>{{ item.model }}</td>
-</tr>
-            </tbody>
-          </table>
-        </section>
-      </div>
-    </div>
-  </template>
-  
-  <style>
-  .main {
-    padding: 20px;
-  }
-  
-  .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .container {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 4px;
-  }
-
-  .release-image {
-  width: 100px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
+<style>
+.main {
+  padding: 20px;
 }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.container {
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  width: calc(33.33% - 10px); /* Adjust the width and spacing as needed */
+  margin-bottom: 20px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #eee;
+}
+
+.card-image {
+  text-align: center;
+}
+
+.card-image img {
+  width: 70%; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin: 10px;
+}
+
+.card-details {
+  padding: 20px;
+}
+
+.brand {
+  font-weight: bold;
+}
+
+.model {
+  color: #888;
+}
+
+.countdown {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+  h1{
+    display: none;
   }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
+  .card {
+    width: calc(100% - 10px);
   }
-  
-  th {
-    background-color: #ccc;
-    font-weight: bold;
+  .container {
+    margin-top: 80px;
+  padding: 0px;
+  border-radius: 4px;
+}
+  #app{
+    padding: 1rem;
   }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tr:hover {
-    background-color: #e6e6e6;
-  }
-  
-  </style>
+}
+</style>

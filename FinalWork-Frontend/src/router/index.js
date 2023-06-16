@@ -30,8 +30,8 @@ const router = createRouter({
             component: () => import('../views/SneakerDetailPage.vue')
         },
         {
-            path: '/user',
-            name: 'user',
+            path: '/userpage',
+            name: 'userpage',
             component: () => import('../views/UserPage.vue')
         }
 
