@@ -7,6 +7,9 @@
       <section class="sneakerlist">
         <div class="card-container">
           <div v-for="item in items" :key="item.id" @click="$router.push(`/sneakers/${item.id}`)" class="card">
+            <div class="favorites-icon">
+              <font-awesome-icon icon="fa-heart"/>
+  </div>
             <div class="card-image">
               <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image">
             </div>
@@ -14,6 +17,7 @@
               <p class="brand">{{ item.brand }}</p>
               <p class="model">{{ item.model }}</p>
               <p class="countdown">{{ countdown }}</p>
+              
             </div>
           </div>
         </div>
@@ -149,6 +153,18 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+
+.favorites-icon {
+  
+  top: 10px;
+  right: 10px;
+  color: red; /* Set your desired icon color */
+  cursor: pointer;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 20px;
 }
 
 /* Responsive Styles */

@@ -43,6 +43,7 @@
 .logo-image {
   height: 40px;
   width: auto;
+  padding-left: 40px;
 }
 
 @font-face {

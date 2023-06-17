@@ -15,11 +15,12 @@ export default {
         password: this.password,
       }
       try {
+        //console.log(data)
         const response = await fetch('http://localhost:8080/users/login', {
           method: 'POST',
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+            Accept: "application/json",
+            'Content-Type': 'application/json',  
           },
           body: JSON.stringify(data),
         })
@@ -27,9 +28,6 @@ export default {
         if (response.ok) {
           console.log(responseData)
           router.push('/releases') // Redirect to '/releases' after successful login
-        } else {
-          // Show alert when login fails
-          alert('Invalid email or password');
         }
       } catch (error) {
         console.error(error)

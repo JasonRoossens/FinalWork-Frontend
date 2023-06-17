@@ -31,30 +31,30 @@ export default {
 </script>
 
 <template>
-    <div class="main">
-      <Navigation />
-      <button @click="$router.push(`/releases`)" class="back-button">Back</button> 
-      <div class="container">
-        <div v-if="sneaker">
-          <h1 class="title">{{ sneaker.brand }} {{ sneaker.model }}</h1>
-          <div class="sneaker-details">
-            <div class="sneaker-image">
-              <img :src="sneaker.images[0]" :alt="sneaker.brand" class="releaseDetail-image" />
-            </div>
-            <div class="sneaker-info">
-              <p><strong>Colorway:</strong> {{ sneaker.colorway }}</p>
-              <p><strong>Price:</strong> {{ sneaker.price }}</p>
-              <p><strong>Style Code:</strong> {{ sneaker.stylecode }}</p>
-              <!-- Add more details as needed -->
-            </div>
+  <div class="main">
+    <Navigation />
+    <button @click="$router.push(`/releases`)" class="back-button">Back</button>
+    <div class="container">
+      <div v-if="sneaker">
+        <h1 class="title">{{ sneaker.brand }} {{ sneaker.model }}</h1>
+        <div class="sneaker-details">
+          <div class="sneaker-image">
+            <img :src="sneaker.images[0]" :alt="sneaker.brand" class="releaseDetail-image" />
+          </div>
+          <div class="sneaker-info">
+            <p><strong>Colorway:</strong> {{ sneaker.colorway }}</p>
+            <p><strong>Price:</strong> € {{ sneaker.price }}</p>
+            <p><strong>Style Code:</strong> {{ sneaker.stylecode }}</p>
+            <!-- Add more details as needed -->
           </div>
         </div>
-        <div v-else>
-          <p>Loading sneaker details...</p>
-        </div>
+      </div>
+      <div v-else>
+        <p>Loading sneaker details...</p>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <style>
 /* Styles for the SneakerDetailPage component */
