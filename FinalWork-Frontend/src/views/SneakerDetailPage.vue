@@ -17,7 +17,7 @@ export default {
     async fetchSneakerData() {
       try {
         const sneakerId = this.$route.params.id;
-        const response = await fetch(`http://localhost:8080/sneakers/sneaker/${sneakerId}`);
+        const response = await fetch(`https://sneakpeek-backend.onrender.com/sneakers/sneaker/${sneakerId}`);
         const data = await response.json();
         if (response.ok) {
           this.sneaker = data;
@@ -33,7 +33,7 @@ export default {
 <template>
   <div class="main">
     <Navigation />
-    <button @click="$router.push(`/releases`)" class="back-button">Back</button>
+    <button @click="$router.push(`/`)" class="back-button">Back</button>
     <div class="container">
       <div v-if="sneaker">
         <h1 class="title">{{ sneaker.brand }} {{ sneaker.model }}</h1>
@@ -101,7 +101,7 @@ button {
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+   
   }
 
 /* Include your existing styles here or add additional styles as needed */

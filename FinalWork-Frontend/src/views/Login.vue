@@ -1,64 +1,75 @@
 <script>
-import router from '../router'
+import router from '../router';
 
 export default {
   data() {
     return {
       email: '',
       password: '',
-    }
+    };
   },
   methods: {
     async fetchData() {
       const data = {
         email: this.email,
         password: this.password,
-      }
+      };
       try {
-        //console.log(data)
-        const response = await fetch('http://localhost:8080/users/login', {
+        const response = await fetch('https://sneakpeek-backend.onrender.com/users/login', {
           method: 'POST',
           headers: {
-            Accept: "application/json",
-            'Content-Type': 'application/json',  
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
-        })
-        const responseData = await response.json()
+        });
+        const responseData = await response.json();
         if (response.ok) {
-          console.log(responseData)
-          router.push('/releases') // Redirect to '/releases' after successful login
+          // Save user data to local storage
+          localStorage.setItem('id', responseData.id);
+          console.log(responseData.id)
+          localStorage.setItem('firstname', responseData.firstname);
+          console.log(responseData.firstname)
+          localStorage.setItem('lastname', responseData.lastname);
+          console.log(responseData.lastname)
+          localStorage.setItem('email', responseData.email);
+          console.log(responseData.email)
+          localStorage.setItem('password', responseData.password);
+          console.log(responseData.password)
+          localStorage.setItem('accessToken', responseData.accessToken);
+          console.log(responseData.accessToken)
+          // Redirect to the home page after successful login
+          router.push('/');
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
   },
-}
+};
 </script>
 
 <template>
-    <form @submit.prevent="fetchData">
-      <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
-      <section id="container">
-        <h1>Log in</h1>
-        <h2>Log in with your account.</h2>
-        <!-- Requirement -->
+  <form @submit.prevent="fetchData">
+    <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
+    <section id="container">
+      <h1>Log in</h1>
+       
+      <!-- Requirement -->
+      <label for="email"><b>Email</b></label>
+      <input type="text" v-model="email" name="email" required>
   
-        <label for="email"><b>Email</b></label>
-        <input type="text" v-model="email" name="email" required>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" v-model="password" name="psw" required>
   
-        <label for="psw"><b>Password</b></label>
-        <input type="password" v-model="password" name="psw" required>
+      <button type="submit" class="signinbtn">Log in</button>
   
-        <button type="submit" class="signinbtn">Log in</button>
-  
-        <!-- <a href="Login">Forgotten password?</a> -->
-        <div class="line"></div>
-        <router-link to="/register" class="register">Register</router-link>
-      </section>
-    </form>
-  </template>
+      <!-- <a href="Login">Forgotten password?</a> -->
+      <div class="line"></div>
+      <router-link to="/register" class="register">Register</router-link>
+    </section>
+  </form>
+</template>
   
   <style scoped>
   @font-face {
@@ -72,10 +83,10 @@ export default {
 }
 
   #container {
-    background-color: #c4d663;;
+    background-color:  #24272C;
     padding: 20px;
     text-align: center;
-    width: 20%;
+    width: 440px;
     margin: 0 auto;
   }
 
@@ -95,16 +106,16 @@ export default {
 }
 
   h1 {
-    font-size: 28px;
+    font-size: 20px;
     margin-bottom: 10px;
-    color: black;
+    color: White;
     font-family: LemonMilkBold;
   }
   
   h2 {
-    font-size: 16px;
+    font-size: 12px;
     margin-bottom: 20px;
-    color: black;
+    color: White;
     font-family: LemonMilkRegular;
   }
   
@@ -112,21 +123,26 @@ export default {
     display: block;
     margin-bottom: 10px;
     font-family: LemonMilkRegular;
-    color: black;
+    color: White;
+    font-size: 14px;
   }
   
   input {
+    background-color: #333;
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 4px;
+    color: white;
   }
+
+
   
   button {
-    background-color: black;
-    color: white;
+    background-color: #c4d663;
+    color: black;
     padding: 10px 20px;
     border: none;
     font-size: 16px;
@@ -134,22 +150,22 @@ export default {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     font-family: LemonMilkRegular;
-    opacity: 85%;
+    opacity: 100%;
   }
   
   button:hover {
-    background-color: black;
-    opacity: 100%;
+    
+    opacity: 85%;
   }
   
   .line {
     margin: 20px 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #777;
   }
   
   .register {
     text-decoration: none;
-    color: black;
+    color: White;
     font-family: LemonMilkRegular;
 
   }

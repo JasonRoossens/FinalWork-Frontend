@@ -19,7 +19,7 @@ export default {
         password: this.password
       }
       try {
-        const response = await fetch('http://localhost:8080/users', {
+        const response = await fetch('https://sneakpeek-backend.onrender.com/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default {
     <form @submit.prevent="fetchData">
       <section id="container">
         <h1>Sign up</h1>
-        <h2>Fill in this form to create an account.</h2>
+        
         <!-- Requirement -->
         <label for="fname"><b>Firstname</b></label>
         <input v-model="firstname" type="text" name="firstname" required>
@@ -63,24 +63,24 @@ export default {
   
   <style scoped>
   #container {
-    background-color: #c4d663;
+    background-color:  #24272C;
     padding: 20px;
     text-align: center;
-    width: 20%;
+    width: 440px;
     margin: 0 auto;
   }
   
   h1 {
-    font-size: 28px;
+    font-size: 20px;
     margin-bottom: 10px;
-    color: black;
+    color: #fff;
     font-family: LemonMilkBold;
   }
   
   h2 {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 20px;
-    color: black;
+    color: #fff;
     font-family: LemonMilkRegular;
   }
 
@@ -103,21 +103,25 @@ export default {
     display: block;
     margin-bottom: 10px;
     font-family: LemonMilkRegular;
-    color: black;
+    color: #fff;
+    font-size: 14px;
   }
   
   input {
+    background-color: #333;
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 4px;
+    color: white;
   }
+
   
   button {
-    background-color: black;
-    color: white;
+    background-color: #c4d663;
+    color: black;
     padding: 10px 20px;
     border: none;
     font-size: 16px;
@@ -125,22 +129,21 @@ export default {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     font-family: LemonMilkRegular;
-    opacity: 85%;
+    opacity: 100%;
   }
   
   button:hover {
-    background-color: black;
-    opacity: 100%;
+    opacity: 85%;
   }
   
   .line {
     margin: 20px 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #777;
   }
   
   .login {
     text-decoration: none;
-    color: black;
+    color: #fff;
     font-weight: bold;
     font-family: LemonMilkRegular;
   }
