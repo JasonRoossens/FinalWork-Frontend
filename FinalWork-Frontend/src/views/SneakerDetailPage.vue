@@ -94,7 +94,6 @@ export default {
 
 button {
     background-color: #c4d663;
-    color: white;
     padding: 10px 20px;
     border: none;
     font-size: 16px;

@@ -77,7 +77,7 @@ export default {
 .logo-image {
   height: 30px;
   width: auto;
-  padding-left: 40px;
+  padding-left: 100px;
 }
 
 @font-face {
