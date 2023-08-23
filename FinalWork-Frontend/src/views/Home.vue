@@ -1,25 +1,27 @@
 <template>
   <div class="main">
     <div id="bg"></div>
+    
     <Navigation />
+    
     <h1 class="title">Upcoming releases</h1>
     <div class="container">
       <section class="sneakerlist">
         <div class="filter-container">
           <label for="brandFilter">Filter by Brand:</label>
-          <select id="brandFilter" v-model="selectedBrand">
+          <select id="brandFilter" v-model="selectedBrand" class="filter-select">
             <option value="">All Brands</option>
             <option v-for="brand in uniqueBrands" :key="brand" :value="brand">{{ brand }}</option>
           </select>
           <label for="colorFilter">Filter by Color:</label>
-          <select id="colorFilter" v-model="selectedColor">
+          <select id="colorFilter" v-model="selectedColor" class="filter-select">
             <option value="">All Colors</option>
             <option v-for="color in uniqueColors" :key="color" :value="color">{{ color }}</option>
           </select>
         </div>
         <div class="sort-container">
           <label for="sortOption">Sort by:</label>
-          <select id="sortOption" v-model="sortOrder">
+          <select id="sortOption" v-model="sortOrder" class="filter-select">
             <option value="releasedate">Release now - later</option>
             <option value="latest">Release later - now</option>
           </select>
@@ -43,16 +45,22 @@
           </div>
         </div>
       </section>
+      <Bottom />
     </div>
+    
   </div>
+
 </template>
 
+
 <script>
+import Bottom from '../components/Foot.vue';
 import Navigation from '../components/Nav.vue';
+
 
 export default {
   components: {
-    Navigation,
+    Navigation, Bottom
   },
   data() {
     return {
@@ -313,5 +321,21 @@ export default {
   #app{
     padding: 1rem;
   }
+}
+.filter-container,
+.sort-container {
+  margin-bottom: 20px;
+}
+
+.filter-select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sort-select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>
