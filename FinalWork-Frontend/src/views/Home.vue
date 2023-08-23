@@ -9,16 +9,16 @@
           <div
             v-for="item in items"
             :key="item.id"
-            @click="$router.push(`/sneakers/${item.id}`)"
             class="card"
           >
-          <div
-      class="favorites-icon"
-      @click="toggleFavorite(item.id)"
-      :class="{ 'is-favorite': isFavorite(item.id) }"
-    >
-      <font-awesome-icon icon="heart" />
-    </div>
+            <div class="favorites-button-container">
+              <button
+                class="favorites-button"
+                @click="toggleFavorite(item.id)"
+              >
+                {{ isFavorite(item.id) ? 'Remove from Favorites' : 'Add to Favorites' }}
+              </button>
+            </div>
             <div class="card-image">
               <img
                 v-for="image in item.images"
@@ -50,19 +50,19 @@ export default {
   data() {
     return {
       items: [],
-      releaseDate: '2023-06-20T00:00:00.000Z', // Set your desired release date here
+      releaseDate: '2023-06-20T00:00:00.000Z',
       countdown: '',
     };
   },
   mounted() {
     this.fetchData();
-    this.updateCountdown(); // Initial countdown update
-    setInterval(this.updateCountdown, 1000); // Update countdown every second
+    this.updateCountdown();
+    setInterval(this.updateCountdown, 1000);
   },
   methods: {
     async fetchData() {
       try {
-        const response = await fetch('https://sneakpeek-backend.onrender.com/sneakers');
+        const response = await fetch('http://localhost:8080/sneakers');
         const data = await response.json();
         if (response.ok) {
           this.items = data;
@@ -79,39 +79,78 @@ export default {
         // Get the user ID from local storage
         const userId = localStorage.getItem('id');
 
-        // Send a POST request to add/remove the sneaker from the user's favorites
-        const response = await fetch(
-          `https://sneakpeek-backend.onrender.com/favorites/${userId}/add/${sneakerId}`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          }
-        );
+        // Check if the sneaker is already favorited
+        const isAlreadyFavorite = await this.isFavorite(sneakerId);
 
-        // Handle the response if needed
-        if (response.ok) {
-          // Sneaker added/removed from favorites successfully
-          // Refresh the data to show the updated favorites status
-          this.fetchData();
+        if (isAlreadyFavorite) {
+          // Send a DELETE request to remove the sneaker from favorites
+          const response = await fetch(
+            `http://localhost:8080/favorites/${userId}/remove/${sneakerId}`,
+            {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            // Sneaker removed from favorites successfully
+            this.fetchData();
+          } else {
+            // Handle errors
+          }
         } else {
-          // Handle errors
+          // Send a POST request to add the sneaker to favorites
+          const response = await fetch(
+            `http://localhost:8080/favorites/${userId}/add/${sneakerId}`,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            // Sneaker added to favorites successfully
+            this.fetchData();
+          } else {
+            // Handle errors
+          }
         }
       } catch (error) {
         console.error(error);
       }
     },
-    isFavorite(sneakerId) {
-      // Implement the logic to check if the sneaker is in the user's favorites
-      // For example, you can compare with a list of favorites stored in local storage
-      // and return true if the sneakerId exists in the favorites list.
-      // For simplicity, I'm assuming it returns false here.
-      return false;
+    async isFavorite(sneakerId) {
+      try {
+        // Get the user ID from local storage
+        const userId = localStorage.getItem('id');
+
+        // Send a GET request to check if the sneaker is in the user's favorites
+        const response = await fetch(
+          `http://localhost:8080/favorites/${userId}`
+        );
+
+        if (response.ok) {
+          const favorites = await response.json();
+          console.log('Favorites:', favorites); // Add this line
+          return favorites.some((favorite) => favorite.id === sneakerId);
+        } else {
+          console.log('Error fetching favorites'); // Add this line
+          // Handle errors
+          return false;
+        }
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
     },
   },
 };
 </script>
+
 
 <style>
 .main {
