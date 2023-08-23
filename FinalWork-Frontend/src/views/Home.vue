@@ -5,33 +5,40 @@
     <h1 class="title">Upcoming releases</h1>
     <div class="container">
       <section class="sneakerlist">
+        <div class="filter-container">
+          <label for="brandFilter">Filter by Brand:</label>
+          <select id="brandFilter" v-model="selectedBrand">
+            <option value="">All Brands</option>
+            <option v-for="brand in uniqueBrands" :key="brand" :value="brand">{{ brand }}</option>
+          </select>
+          <label for="colorFilter">Filter by Color:</label>
+          <select id="colorFilter" v-model="selectedColor">
+            <option value="">All Colors</option>
+            <option v-for="color in uniqueColors" :key="color" :value="color">{{ color }}</option>
+          </select>
+        </div>
+        <div class="sort-container">
+          <label for="sortOption">Sort by:</label>
+          <select id="sortOption" v-model="sortOrder">
+            <option value="releasedate">Release now - later</option>
+            <option value="latest">Release later - now</option>
+          </select>
+        </div>
         <div class="card-container">
-          <div
-            v-for="item in items"
-            :key="item.id"
-            class="card"
-          >
+          <div v-for="item in sortedAndFilteredItems" :key="item.id" class="card">
             <div class="favorites-button-container">
-              <button
-                class="favorites-button"
-                @click="toggleFavorite(item.id)"
-              >
+              <button class="favorites-button" @click="toggleFavorite(item.id)">
                 {{ isFavorite(item.id) ? 'Remove from Favorites' : 'Add to Favorites' }}
               </button>
             </div>
             <div class="card-image">
-              <img
-                v-for="image in item.images"
-                :key="image"
-                :src="image"
-                alt="Release Image"
-                class="release-image"
-              />
+              <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
             </div>
             <div class="card-details">
               <p class="brand">{{ item.brand }}</p>
               <p class="model">{{ item.model }}</p>
-              <p class="countdown">{{ countdown }}</p>
+              <p class="model">{{ item.colorway }}</p>
+              <p class="countdown">{{ item.releasedate }}</p>
             </div>
           </div>
         </div>
@@ -50,9 +57,35 @@ export default {
   data() {
     return {
       items: [],
+      selectedBrand: '', // Selected brand for filtering
+      selectedColor: '', // Selected color for filtering
+      sortOrder: 'releasedate', // Default sort order set to release date
       releaseDate: '2023-06-20T00:00:00.000Z',
       countdown: '',
     };
+  },
+  computed: {
+    uniqueBrands() {
+      // Compute unique brands from the items data
+      const brands = new Set();
+      this.items.forEach(item => brands.add(item.brand));
+      return Array.from(brands);
+    },
+    uniqueColors() {
+      // Compute unique colorways from the items data
+      const colorways = new Set();
+      this.items.forEach(item => colorways.add(item.colorway));
+      return Array.from(colorways);
+    },
+    sortedAndFilteredItems() {
+      let sortedItems = [...this.items];
+      if (this.sortOrder === 'releasedate') {
+        sortedItems.sort((a, b) => new Date(a.releasedate) - new Date(b.releasedate));
+      } else if (this.sortOrder === 'latest') {
+        sortedItems.sort((a, b) => new Date(b.releasedate) - new Date(a.releasedate));
+      }
+      return this.applyFilters(sortedItems);
+    },
   },
   mounted() {
     this.fetchData();
@@ -129,9 +162,7 @@ export default {
         const userId = localStorage.getItem('id');
 
         // Send a GET request to check if the sneaker is in the user's favorites
-        const response = await fetch(
-          `http://localhost:8080/favorites/${userId}`
-        );
+        const response = await fetch(`http://localhost:8080/favorites/${userId}`);
 
         if (response.ok) {
           const favorites = await response.json();
@@ -146,6 +177,20 @@ export default {
         console.error(error);
         return false;
       }
+    },
+    applyFilters(items) {
+      // Apply brand and color filters if selected
+      let filteredItems = items;
+
+      if (this.selectedBrand) {
+        filteredItems = filteredItems.filter(item => item.brand === this.selectedBrand);
+      }
+
+      if (this.selectedColor) {
+        filteredItems = filteredItems.filter(item => item.colorway === this.selectedColor);
+      }
+
+      return filteredItems;
     },
   },
 };
