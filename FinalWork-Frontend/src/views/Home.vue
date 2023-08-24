@@ -44,7 +44,7 @@
               <p class="brand">{{ item.brand }}</p>
               <p class="model">{{ item.model }}</p>
               <p class="model">{{ item.colorway }}</p>
-              <p class="countdown">{{ item.releasedate }}</p>
+              <p class="release"><!-- {{ item.releasedate }} - --> {{ countdowns[item.id] }}</p>
             </div>
           </div>
         </div>
@@ -73,8 +73,14 @@ export default {
       selectedColor: '', // Selected color for filtering
       sortOrder: 'releasedate', // Default sort order set to release date
       releaseDate: '2023-06-20T00:00:00.000Z',
-      countdown: '',
+      countdowns: {},
     };
+  },
+  created() {
+    // Update countdown every second
+    setInterval(() => {
+      this.updateCountdowns();
+    }, 1000);
   },
   computed: {
     uniqueBrands() {
@@ -118,6 +124,23 @@ export default {
     },
     updateCountdown() {
       // ... Your existing countdown logic ...
+    },
+    updateCountdowns() {
+      this.items.forEach(item => {
+        this.countdowns[item.id] = this.formatCountdown(item.releasedate);
+      });
+    },
+    formatCountdown(releaseDate) {
+      const releaseDateTime = new Date(releaseDate).getTime();
+      const now = new Date().getTime();
+      const countdown = releaseDateTime - now;
+
+      const days = Math.floor(countdown / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+
+      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
     },
     async toggleFavorite(sneakerId) {
       try {
