@@ -32,6 +32,8 @@ export default {
 
 <template>
   <div class="main">
+    <div id="bg"></div>
+
     <Navigation />
     <button @click="$router.push(`/`)" class="back-button">Back</button>
     <div class="container">
@@ -62,6 +64,16 @@ export default {
   padding: 20px;
 }
 
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #0B0E0F;
+}
+
 .container {
   padding: 20px;
   border-radius: 4px;
@@ -70,6 +82,7 @@ export default {
 .title {
   font-size: 24px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .sneaker-details {
@@ -81,15 +94,17 @@ export default {
 .sneaker-image {
   flex: 1;
   margin-right: 20px;
+  background-color: white;
+  border-radius: 10px;
+  
+}
+
+.sneaker-image img{
+  
 }
 
 .sneaker-info {
   flex: 2;
-}
-
-.releaseDetail-image {
-  width: 250px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
 }
 
 .back-button {
