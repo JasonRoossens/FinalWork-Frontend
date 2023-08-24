@@ -38,7 +38,7 @@ export default {
     <button @click="$router.push(`/`)" class="back-button">Back</button>
     <div class="container">
       <div v-if="sneaker">
-        <h1 class="title">{{ sneaker.brand }} {{ sneaker.model }}</h1>
+        <h1 class="title-detail">{{ sneaker.brand }} {{ sneaker.model }}</h1>
         <div class="sneaker-details">
           <div class="sneaker-image">
             <img :src="sneaker.images[0]" :alt="sneaker.brand" class="releaseDetail-image" />
@@ -79,7 +79,7 @@ export default {
   border-radius: 4px;
 }
 
-.title {
+.title-detail {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
