@@ -3,19 +3,29 @@
         <div class="logo-botoom">
         <img src="../assets/images/logo.png" alt="Logo" class="logo-image-bottom" />
       </div>
-      
-  
-      <!-- Show user's firstname and "Logout" button if logged in -->
-    
-  
-      <!-- Show "Login" and "Sign up" buttons if not logged in -->
+
       <div>
-        <button class="social-btn"><router-link to="">Twitter</router-link></button>
-        <button class="social-btn"><router-link to="">Facebook</router-link></button>
-        <button class="social-btn"><router-link to="">Instagram</router-link></button>
+        <button class="social-btn">
+        <router-link to=""><font-awesome-icon :icon="['fab', 'twitter']" /></router-link>
+      </button>
+      <button class="social-btn">
+        <router-link to=""><font-awesome-icon :icon="['fab', 'facebook']" /></router-link>
+      </button>
+      <button class="social-btn">
+        <router-link to=""><font-awesome-icon :icon="['fab', 'instagram']" /></router-link>
+      </button>
       </div>
     </div>
   </template>
+
+  <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+
+library.add(faTwitter, faFacebook, faInstagram);
+
+</script>
   
   <style>
   #foot {
@@ -52,18 +62,19 @@
     font-family: 'LemonMilkRegular', sans-serif;
     text-decoration: none;
     opacity: 1;
-    background-color: #c4d663;
+    background-color: #24272C;
     font-size: 1em;
     text-transform: capitalize;
-    padding: 10px 10px 10px 10px;
     border: none;
     margin-left: 10px;
     border-radius: 5px;;
+    margin-right: 10px;
   }
 
   .social-btn a{
     text-decoration: none;
-    color: black;
+    color: #c4d663;
+    font-size: 20px;
   }
   
   .logout-btn a{

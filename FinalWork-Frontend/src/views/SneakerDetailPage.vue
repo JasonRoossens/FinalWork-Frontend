@@ -92,7 +92,7 @@ export default {
   height: auto; /* Maintain aspect ratio */
 }
 
-button {
+.back-button {
     background-color: #c4d663;
     padding: 10px 20px;
     border: none;

@@ -8,6 +8,11 @@
     <div class="container">
       <section class="sneakerlist">
         <div class="filter-container">
+          <label for="sortOption">Sort by:</label>
+          <select id="sortOption" v-model="sortOrder" class="filter-select">
+            <option value="releasedate">Release now - later</option>
+            <option value="latest">Release later - now</option>
+          </select>
           <label for="brandFilter">Filter by Brand:</label>
           <select id="brandFilter" v-model="selectedBrand" class="filter-select">
             <option value="">All Brands</option>
@@ -18,13 +23,10 @@
             <option value="">All Colors</option>
             <option v-for="color in uniqueColors" :key="color" :value="color">{{ color }}</option>
           </select>
+          
         </div>
         <div class="sort-container">
-          <label for="sortOption">Sort by:</label>
-          <select id="sortOption" v-model="sortOrder" class="filter-select">
-            <option value="releasedate">Release now - later</option>
-            <option value="latest">Release later - now</option>
-          </select>
+          
         </div>
         <div class="card-container">
           <div v-for="item in sortedAndFilteredItems" :key="item.id" class="card">
@@ -33,9 +35,11 @@
                 {{ isFavorite(item.id) ? 'Remove from Favorites' : 'Add to Favorites' }}
               </button>
             </div>
-            <div class="card-image">
-              <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
-            </div>
+            <router-link :to="'/sneakers/' + item.id" class="sneaker-link">
+              <div class="card-image">
+                <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
+              </div>
+            </router-link>
             <div class="card-details">
               <p class="brand">{{ item.brand }}</p>
               <p class="model">{{ item.model }}</p>
@@ -231,8 +235,8 @@ export default {
 .card {
   width: calc(20% - 10px); /* Adjust the width and spacing as needed */
   margin-bottom: 20px;
-  background-color: #fff;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .card-events {
@@ -242,18 +246,21 @@ export default {
   cursor: pointer;
 }
 
-.card:hover {
+.card-image:hover {
   background-color: #eee;
 }
 
 .card-image {
   text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .card-image img {
   width: 70%; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
   margin: 10px;
+  border-radius: 10px;
 }
 
 .card-details {
@@ -293,6 +300,10 @@ export default {
   object-fit: cover;
 }
 
+.favorites-button-container{
+  margin-left: 5px;
+  z-index: 999;
+}
 
 .favorites-icon {
   
@@ -324,18 +335,31 @@ export default {
 }
 .filter-container,
 .sort-container {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: white;
+  font-weight: bold;
 }
 
 .filter-select {
-  padding: 5px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  padding-right: 20px;
+  border: 1px solid #777;
+  background-color: #24272C;
+  color: #fff;
   border-radius: 4px;
+  margin: 7px;
+  margin-right: 25px;
+  
 }
 
 .sort-select {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-right: 20px;
+}
+
+.filter-container .label{
+  padding: 10px;
 }
 </style>
