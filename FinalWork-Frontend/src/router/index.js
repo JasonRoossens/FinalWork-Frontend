@@ -34,11 +34,6 @@ const router = createRouter({
             name: 'userpage',
             component: () => import('../views/UserPage.vue')
         },
-        {
-            path: '/chatbot',
-            name: 'chatbot',
-            component: () => import('../views/chatbot.vue')
-        }
 
     ]
 })

@@ -3,6 +3,7 @@
     <div id="bg"></div>
     
     <Navigation />
+    <Chatbot />
     
     <h1 class="title">Upcoming releases</h1>
     <div class="container">
@@ -60,11 +61,12 @@
 <script>
 import Bottom from '../components/Foot.vue';
 import Navigation from '../components/Nav.vue';
+import Chatbot from '../components/Chatbot.vue'
 
 
 export default {
   components: {
-    Navigation, Bottom
+    Navigation, Bottom, Chatbot
   },
   data() {
     return {
@@ -131,17 +133,21 @@ export default {
       });
     },
     formatCountdown(releaseDate) {
-      const releaseDateTime = new Date(releaseDate).getTime();
-      const now = new Date().getTime();
-      const countdown = releaseDateTime - now;
+  const releaseDateTime = new Date(releaseDate).getTime();
+  const now = new Date().getTime();
+  const countdown = releaseDateTime - now;
 
-      const days = Math.floor(countdown / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+  if (countdown <= 0) {
+    return "Already Released";
+  }
 
-      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    },
+  const days = Math.floor(countdown / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((countdown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((countdown % (1000 * 60)) / 1000);
+
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+},
     async toggleFavorite(sneakerId) {
       try {
         // Get the user ID from local storage
