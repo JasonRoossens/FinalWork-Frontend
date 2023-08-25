@@ -61,7 +61,7 @@ export default {
   <style>
 /* Styles for the SneakerDetailPage component */
 .main {
-  padding: 20px;
+  padding: 100px;
 }
 
 #bg {

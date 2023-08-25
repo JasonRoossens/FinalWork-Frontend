@@ -30,31 +30,38 @@
           
         </div>
         <div class="card-container">
-          <div v-for="item in sortedAndFilteredItems" :key="item.id" class="card">
-            <div class="favorites-button-container">
-              <button class="favorites-button" @click="toggleFavorite(item.id)">
-                {{ isFavorite(item.id) ? 'Remove from Favorites' : 'Add to Favorites' }}
-              </button>
-            </div>
-            <router-link :to="'/sneakers/' + item.id" class="sneaker-link">
-              <div class="card-image">
-                <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
-              </div>
-            </router-link>
-            <div class="card-details">
-              <p class="brand">{{ item.brand }}</p>
-              <p class="model">{{ item.model }}</p>
-              <p class="model">{{ item.colorway }}</p>
-              <p class="release"><!-- {{ item.releasedate }} - --> {{ countdowns[item.id] }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <Bottom />
+  <div v-for="item in visibleItems" :key="item.id" class="card">
+    <div class="favorites-button-container">
+      <button class="favorites-button" @click="toggleFavorite(item.id)">
+        {{ isFavorite(item.id) ? 'Favorite' : 'Add to Favorites' }}
+      </button>
     </div>
-    
+    <router-link :to="'/sneakers/' + item.id" class="sneaker-link">
+      <div class="card-image">
+        <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
+      </div>
+    </router-link>
+    <div class="card-details">
+      <p class="brand">{{ item.brand }}</p>
+      <p class="model">{{ item.model }}</p>
+      <p class="model">{{ item.colorway }}</p>
+      <p class="release"><!-- {{ item.releasedate }} - --> {{ countdowns[item.id] }}</p>
+    </div>
   </div>
-
+  
+  <button v-if="!showAllSneakers" @click="showAllSneakers = true" class="show-more-button">
+    Show More
+  </button>
+  <button v-if="showAllSneakers" @click="showAllSneakers = false" class="show-more-button">
+    Show Less
+  </button>
+</div>
+      </section>
+      
+    </div>
+   
+  </div>
+  <Bottom />
 </template>
 
 
@@ -76,6 +83,7 @@ export default {
       sortOrder: 'releasedate', // Default sort order set to release date
       releaseDate: '2023-06-20T00:00:00.000Z',
       countdowns: {},
+      showAllSneakers: false,
     };
   },
   created() {
@@ -106,6 +114,10 @@ export default {
       }
       return this.applyFilters(sortedItems);
     },
+    visibleItems() {
+    const maxVisibleItems = this.showAllSneakers ? this.items.length : 10;
+    return this.sortedAndFilteredItems.slice(0, maxVisibleItems);
+  },
   },
   mounted() {
     this.fetchData();
@@ -240,7 +252,8 @@ export default {
 
 <style>
 .main {
-  padding: 20px;
+  padding: 100px;
+  padding-bottom: 10px;
 }
 
 .title {
@@ -260,6 +273,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between
 }
+
 
 .card {
   width: calc(20% - 10px); /* Adjust the width and spacing as needed */
@@ -332,6 +346,13 @@ export default {
 .favorites-button-container{
   margin-left: 5px;
   z-index: 999;
+}
+
+.show-more-button{
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .favorites-icon {

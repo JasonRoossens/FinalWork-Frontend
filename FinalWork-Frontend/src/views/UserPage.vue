@@ -70,3 +70,9 @@
     },
   };
   </script>
+
+  <style>
+ main{
+  padding: 100px;
+ }
+</style>
