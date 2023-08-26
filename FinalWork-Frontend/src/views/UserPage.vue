@@ -1,8 +1,9 @@
 <template>
+  <div id="bg"></div>
   <main>
     <Navigation />
     <div v-if="user" class="user-profile">
-      <h1>User Profile</h1>
+      <h1 class="h1-user">User Profile</h1>
       <div class="user-details">
         <p><strong>Firstname:</strong> {{ user.firstname }}</p>
         <p><strong>Lastname:</strong> {{ user.lastname }}</p>
@@ -56,7 +57,7 @@
       </div>
       <!-- Display favorites -->
       <div v-if="favorites.length > 0" class="favorites-section">
-        <h2>Favorites</h2>
+        <h2 class="h2-user">Favorites</h2>
         <ul class="favorites-list">
           <li v-for="favorite in favorites" :key="favorite.id" class="favorite-item">
             <img :src="favorite.images[0]" :alt="favorite.brand" class="favorite-image" />
@@ -186,6 +187,17 @@ export default {
 <style>
 main {
   padding: 50px;
+  color: white;
+}
+
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #0B0E0F;
 }
 
 .user-profile {
@@ -252,7 +264,7 @@ main {
   margin: 0;
 }
 
-h1, h2 {
+.h1-user, .h2-user {
   font-size: 24px;
   font-family: LemonMilkRegular;
   text-align: center;

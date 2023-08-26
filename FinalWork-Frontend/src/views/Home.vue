@@ -288,12 +288,13 @@ export default {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between
+  justify-content: flex-start;
 }
 
 
 .card {
   width: calc(20% - 10px); /* Adjust the width and spacing as needed */
+  margin: 5px;
   margin-bottom: 20px;
   cursor: pointer;
   border-radius: 10px;
@@ -387,6 +388,7 @@ export default {
   color: white;
   font-family: LemonMilkRegular;
   cursor: pointer;
+  width: 100%;
 }
 
 .favorites-icon {
