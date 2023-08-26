@@ -303,5 +303,20 @@ p {
   padding: 10px;
 }
 
+@media (max-width: 767px) {
+  .user-details {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .favorites-list {
+    display: block;
+  }
+
+  .favorite-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
 /* ... (your other styles) ... */
 </style>

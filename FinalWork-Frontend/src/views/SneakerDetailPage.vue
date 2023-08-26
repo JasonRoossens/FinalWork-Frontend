@@ -171,6 +171,20 @@ p {
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
+@media (max-width: 767px) {
+  .sneaker-details {
+    flex-direction: column;
+    align-items: center;
+  }
 
-/* Include your existing styles here or add additional styles as needed */
+  .sneaker-image {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .sneaker-info {
+    width: 100%;
+  }
+}
+
 </style>
