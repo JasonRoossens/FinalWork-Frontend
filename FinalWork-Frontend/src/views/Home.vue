@@ -127,7 +127,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await fetch('http://localhost:8080/sneakers');
+        const response = await fetch('https://sneakpeek-backend.onrender.com/sneakers');
         const data = await response.json();
         if (response.ok) {
           this.items = data;
@@ -171,7 +171,7 @@ export default {
         if (isAlreadyFavorite) {
           // Send a DELETE request to remove the sneaker from favorites
           const response = await fetch(
-            `http://localhost:8080/favorites/${userId}/remove/${sneakerId}`,
+            `https://sneakpeek-backend.onrender.com/favorites/${userId}/remove/${sneakerId}`,
             {
               method: 'DELETE',
               headers: {
@@ -189,7 +189,7 @@ export default {
         } else {
           // Send a POST request to add the sneaker to favorites
           const response = await fetch(
-            `http://localhost:8080/favorites/${userId}/add/${sneakerId}`,
+            `https://sneakpeek-backend.onrender.com/favorites/${userId}/add/${sneakerId}`,
             {
               method: 'POST',
               headers: {
@@ -215,7 +215,7 @@ export default {
         const userId = localStorage.getItem('id');
 
         // Send a GET request to check if the sneaker is in the user's favorites
-        const response = await fetch(`http://localhost:8080/favorites/${userId}`);
+        const response = await fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`);
 
         if (response.ok) {
           const favorites = await response.json();
