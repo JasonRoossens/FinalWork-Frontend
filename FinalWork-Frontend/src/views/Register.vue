@@ -68,6 +68,7 @@ export default {
     text-align: center;
     width: 440px;
     margin: 0 auto;
+    margin-top: 10%;
   }
   
   h1 {

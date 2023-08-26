@@ -7,7 +7,7 @@
 
     <!-- Show user's firstname and "Logout" button if logged in -->
     <div v-if="isLoggedIn">
-      <router-link to="/UserPage" class="nav_btn">Hello, {{ firstname }}</router-link>
+      <router-link to="/UserPage" class="hello_btn">Hello, {{ firstname }}</router-link>
       <button class="logout-btn" @click="logout">Logout</button>
     </div>
 
@@ -131,6 +131,15 @@ export default {
   padding: 0px 30px 0px 30px;
 }
 
+.hello_btn{
+  font-family: 'LemonMilkRegular', sans-serif;
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  padding: 0px 30px 0px 30px;
+  letter-spacing: 1px;
+}
+
 
 .nav_icon {
   font-family: 'LemonMilkRegular', sans-serif;
@@ -149,5 +158,16 @@ x
 
 .nav_btn:hover {
   opacity: 0.5;
+}
+
+@media (max-width: 767px) {
+  .hello_btn{
+    display: none;
+  }
+  .logo {
+  flex-grow: 1;
+  text-align: center;
+  margin-right: 20%;
+}
 }
 </style>

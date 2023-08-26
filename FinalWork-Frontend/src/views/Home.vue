@@ -32,10 +32,10 @@
         <div class="card-container">
   <div v-for="item in visibleItems" :key="item.id" class="card">
     <div class="favorites-button-container">
-      <button class="favorites-button" @click="toggleFavorite(item.id)">
-        {{ isFavorite(item.id) ? 'Favorite' : 'Add to Favorites' }}
-      </button>
-    </div>
+      <button class="favorites-button" @click="toggleFavorite(item.id)"> <font-awesome-icon :icon="['fa', 'heart']" />
+      {{ getItemFavoriteStatus(item.id) ? 'Favorite' : 'Add to Favorites' }}
+    </button>
+</div>
     <router-link :to="'/sneakers/' + item.id" class="sneaker-link">
       <div class="card-image">
         <img v-for="image in item.images" :key="image" :src="image" alt="Release Image" class="release-image" />
@@ -70,6 +70,10 @@ import Bottom from '../components/Foot.vue';
 import Navigation from '../components/Nav.vue';
 import Chatbot from '../components/Chatbot.vue'
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faHeart);
 
 export default {
   components: {
@@ -86,12 +90,12 @@ export default {
       showAllSneakers: false,
     };
   },
-  created() {
+  /* created() {
     // Update countdown every second
     setInterval(() => {
       this.updateCountdowns();
     }, 1000);
-  },
+  }, */
   computed: {
     uniqueBrands() {
       // Compute unique brands from the items data
@@ -122,7 +126,7 @@ export default {
   mounted() {
     this.fetchData();
     this.updateCountdown();
-    setInterval(this.updateCountdown, 1000);
+    // setInterval(this.updateCountdown, 1000);
   },
   methods: {
     async fetchData() {
@@ -143,6 +147,15 @@ export default {
       this.items.forEach(item => {
         this.countdowns[item.id] = this.formatCountdown(item.releasedate);
       });
+    },
+    async getItemFavoriteStatus(sneakerId) {
+      try {
+        const isFav = await this.isFavorite(sneakerId);
+        return isFav;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
     },
     formatCountdown(releaseDate) {
   const releaseDateTime = new Date(releaseDate).getTime();
@@ -166,7 +179,7 @@ export default {
         const userId = localStorage.getItem('id');
 
         // Check if the sneaker is already favorited
-        const isAlreadyFavorite = await this.isFavorite(sneakerId);
+        const isAlreadyFavorite = await this.getItemFavoriteStatus(sneakerId);
 
         if (isAlreadyFavorite) {
           // Send a DELETE request to remove the sneaker from favorites
@@ -218,9 +231,13 @@ export default {
         const response = await fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`);
 
         if (response.ok) {
-          const favorites = await response.json();
-          console.log('Favorites:', favorites); // Add this line
-          return favorites.some((favorite) => favorite.id === sneakerId);
+      const favorites = await response.json();
+      console.log('Favorites:', favorites); // Add this line
+      
+      const isFavorited = favorites.some((favorite) => favorite.id === sneakerId);
+      console.log(`Is Favorited? ${isFavorited}`); // Add this line
+      
+      return isFavorited;
         } else {
           console.log('Error fetching favorites'); // Add this line
           // Handle errors
@@ -344,8 +361,20 @@ export default {
 }
 
 .favorites-button-container{
-  margin-left: 5px;
+  text-align: center;
+  margin-bottom: 10px;
   z-index: 999;
+  cursor: default;
+}
+
+.favorites-button{
+  background-color: #24272C;
+  color: white;
+  border: solid 2px #c4d663;
+  border-radius: 10px;
+  padding: 8px;
+  font-family: LemonMilkRegular;
+  cursor: pointer;
 }
 
 .show-more-button{
@@ -353,6 +382,11 @@ export default {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  background-color: #0B0E0F;
+  border: none;
+  color: white;
+  font-family: LemonMilkRegular;
+  cursor: pointer;
 }
 
 .favorites-icon {

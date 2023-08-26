@@ -22,8 +22,9 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faTwitter, faFacebook, faInstagram);
+library.add(faTwitter, faFacebook, faInstagram, faHeart);
 
 </script>
   

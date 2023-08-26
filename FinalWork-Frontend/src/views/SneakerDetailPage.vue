@@ -149,8 +149,8 @@ p {
   margin-right: 20px;
   background-color: white;
   border-radius: 10px;
-  max-width: 700px; /* Adjust this value as needed */
-  max-height: 700px; /* Adjust this value as needed */
+  max-width: 500px; /* Adjust this value as needed */
+  max-height: 500px; /* Adjust this value as needed */
 }
 
 .sneaker-image img {
