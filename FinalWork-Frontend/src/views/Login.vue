@@ -1,3 +1,27 @@
+<template>
+  <form @submit.prevent="fetchData">
+    <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
+    <section id="container">
+      <h1>Log in</h1>
+       
+      <!-- Requirement -->
+      <label for="email"><b>Email</b></label>
+      <input type="text" v-model="email" name="email" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" v-model="password" name="psw" required>
+
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+  
+      <button type="submit" class="signinbtn">Log in</button>
+  
+      <!-- <a href="Login">Forgotten password?</a> -->
+      <div class="line"></div>
+      <router-link to="/register" class="register">Register</router-link>
+    </section>
+  </form>
+</template>
+
 <script>
 import router from '../router';
 
@@ -6,6 +30,7 @@ export default {
     return {
       email: '',
       password: '',
+      errorMessage: '',
     };
   },
   methods: {
@@ -40,6 +65,9 @@ export default {
           console.log(responseData.accessToken)
           // Redirect to the home page after successful login
           router.push('/');
+        } else {
+          // Set error message when login fails
+          this.errorMessage = 'Email or password is incorrect';
         }
       } catch (error) {
         console.error(error);
@@ -49,27 +77,6 @@ export default {
 };
 </script>
 
-<template>
-  <form @submit.prevent="fetchData">
-    <div id="bg"><img src="../assets/images/black-snkr.jpg" alt=""></div>
-    <section id="container">
-      <h1>Log in</h1>
-       
-      <!-- Requirement -->
-      <label for="email"><b>Email</b></label>
-      <input type="text" v-model="email" name="email" required>
-  
-      <label for="psw"><b>Password</b></label>
-      <input type="password" v-model="password" name="psw" required>
-  
-      <button type="submit" class="signinbtn">Log in</button>
-  
-      <!-- <a href="Login">Forgotten password?</a> -->
-      <div class="line"></div>
-      <router-link to="/register" class="register">Register</router-link>
-    </section>
-  </form>
-</template>
   
   <style scoped>
   @font-face {
@@ -170,4 +177,8 @@ export default {
     font-family: LemonMilkRegular;
 
   }
+  .error-message {
+  color: red;
+  margin-top: 10px;
+}
   </style>

@@ -32,8 +32,12 @@
         <div class="card-container">
   <div v-for="item in visibleItems" :key="item.id" class="card">
     <div class="favorites-button-container">
-      <button class="favorites-button" @click="toggleFavorite(item.id)"> <font-awesome-icon :icon="['fa', 'heart']" />
-      {{ getItemFavoriteStatus(item.id) ? 'Favorite' : 'Add to Favorites' }}
+      <button v-if="item.favorite" class="favorites-button" @click="toggleFavorite(item.id, true)"> <font-awesome-icon :icon="['fas', 'heart']" />
+        Favorite 
+    </button>
+    
+    <button v-if="!item.favorite" class="favorites-button" @click="toggleFavorite(item.id, false)"> <font-awesome-icon :icon="['far', 'heart']" />
+      Add to Favorites
     </button>
 </div>
     <router-link :to="'/sneakers/' + item.id" class="sneaker-link">
@@ -71,9 +75,10 @@ import Navigation from '../components/Nav.vue';
 import Chatbot from '../components/Chatbot.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons';
 
-library.add(faHeart);
+library.add(fasHeart, farHeart);
 
 export default {
   components: {
@@ -131,11 +136,30 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await fetch('https://sneakpeek-backend.onrender.com/sneakers');
-        const data = await response.json();
-        if (response.ok) {
-          this.items = data;
-        }
+        const userId = localStorage.getItem('id');
+        const allPromise = Promise.all([
+        fetch('https://sneakpeek-backend.onrender.com/sneakers'),
+        fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`)
+        ]);
+
+        const [items, favorites] = await allPromise;
+        
+
+        const listOfItems = await items.json()
+        const listOfFavorites = await favorites.json()
+
+        console.log(listOfItems, listOfFavorites)
+
+        listOfFavorites.forEach(favorite => {
+          const sneaker = listOfItems.find(item => item.id === favorite.id)
+          if (sneaker){
+               sneaker.favorite = true
+          }
+        })
+
+        this.items = listOfItems;
+        console.log(listOfItems)
+
       } catch (error) {
         console.error(error);
       }
@@ -148,7 +172,7 @@ export default {
         this.countdowns[item.id] = this.formatCountdown(item.releasedate);
       });
     },
-    async getItemFavoriteStatus(sneakerId) {
+    async isFavoriteItem(sneakerId) {
       try {
         const isFav = await this.isFavorite(sneakerId);
         return isFav;
@@ -173,13 +197,9 @@ export default {
 
   return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 },
-    async toggleFavorite(sneakerId) {
+    async toggleFavorite(sneakerId, isAlreadyFavorite) {
       try {
-        // Get the user ID from local storage
         const userId = localStorage.getItem('id');
-
-        // Check if the sneaker is already favorited
-        const isAlreadyFavorite = await this.getItemFavoriteStatus(sneakerId);
 
         if (isAlreadyFavorite) {
           // Send a DELETE request to remove the sneaker from favorites
@@ -222,32 +242,32 @@ export default {
         console.error(error);
       }
     },
-    async isFavorite(sneakerId) {
-      try {
-        // Get the user ID from local storage
-        const userId = localStorage.getItem('id');
+    // async isFavorite(sneakerId) {
+    //   try {
+    //     // Get the user ID from local storage
+    //     const userId = localStorage.getItem('id');
 
-        // Send a GET request to check if the sneaker is in the user's favorites
-        const response = await fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`);
+    //     // Send a GET request to check if the sneaker is in the user's favorites
+    //     const response = await fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`);
 
-        if (response.ok) {
-      const favorites = await response.json();
-      console.log('Favorites:', favorites); // Add this line
+    //     if (response.ok) {
+    //   const favorites = await response.json();
+    //   console.log('Favorites:', favorites); // Add this line
       
-      const isFavorited = favorites.some((favorite) => favorite.id === sneakerId);
-      console.log(`Is Favorited? ${isFavorited}`); // Add this line
+    //   const isFavorited = favorites.some((favorite) => favorite.id === sneakerId);
+    //   console.log(`Is Favorited? ${isFavorited}`,sneakerId, typeof isFavorited); // Add this line
       
-      return isFavorited;
-        } else {
-          console.log('Error fetching favorites'); // Add this line
-          // Handle errors
-          return false;
-        }
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    },
+    //   return isFavorited;
+    //     } else {
+    //       console.log('Error fetching favorites'); // Add this line
+    //       // Handle errors
+    //       return false;
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //     return false;
+    //   }
+    // },
     applyFilters(items) {
       // Apply brand and color filters if selected
       let filteredItems = items;
