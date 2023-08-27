@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <router-link to="/" class="nav_btn">Home</router-link>
+    <router-link to="/" class="nav_hmbtn">Home</router-link>
     <div class="logo">
       <img src="../assets/images/logo.png" alt="Logo" class="logo-image" />
     </div>
@@ -131,6 +131,18 @@ export default {
   padding: 0px 30px 0px 30px;
 }
 
+.nav_hmbtn {
+  font-family: 'LemonMilkRegular', sans-serif;
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 1em;
+  text-transform: capitalize;
+  padding: 0px 30px 0px 30px;
+}
+
 .hello_btn{
   font-family: 'LemonMilkRegular', sans-serif;
   text-decoration: none;
@@ -168,6 +180,57 @@ x
   flex-grow: 1;
   text-align: center;
   margin-right: 20%;
+}
+.login-btn{
+  display: none;
+}
+}
+@media (max-width: 480px) {
+  #nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #24272C;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  font-family: 'LemonMilkRegular', sans-serif;
+}
+
+.logo-image {
+  height: 30px;
+  width: auto;
+  padding-left: 70px;
+}
+
+.nav_btn {
+  font-family: 'LemonMilkRegular', sans-serif;
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 1em;
+  text-transform: capitalize;
+  padding: 0px 10px 0px 0px;
+}
+.login-btn{
+  display: none;
+}
+.nav_hmbtn {
+  font-family: 'LemonMilkRegular', sans-serif;
+  text-decoration: none;
+  opacity: 1;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 1em;
+  text-transform: capitalize;
+  padding: 0px 0px 0px 0px;
+  margin-left: 10px;
 }
 }
 </style>

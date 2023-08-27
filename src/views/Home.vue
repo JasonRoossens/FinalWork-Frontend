@@ -455,6 +455,17 @@ export default {
   #app{
     padding: 1rem;
   }
+  .filter-select {
+    padding: 8px;
+    padding-right: 20px;
+    border: 1px solid #777;
+    background-color: #24272C;
+    color: #fff;
+    border-radius: 4px;
+    margin: 7px;
+    margin-right: 25px;
+    width: 100%;
+}
 }
 .filter-container,
 .sort-container {
@@ -484,5 +495,24 @@ export default {
 
 .filter-container .label{
   padding: 10px;
+  
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 20px;
+    padding-bottom: 10px;
+}
+.filter-select {
+    padding: 8px;
+    padding-right: 20px;
+    border: 1px solid #777;
+    background-color: #24272C;
+    color: #fff;
+    border-radius: 4px;
+    margin: 7px;
+    margin-right: 25px;
+    width: 100%;
+}
 }
 </style>

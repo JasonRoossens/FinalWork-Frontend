@@ -133,4 +133,11 @@ library.add(faTwitter, faFacebook, faInstagram, faHeart);
   .nav_btn:hover {
     opacity: 0.5;
   }
+  @media (max-width: 480px) {
+    #foot{
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+    }
+  }
   </style>

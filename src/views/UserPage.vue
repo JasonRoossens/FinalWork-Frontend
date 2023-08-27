@@ -232,7 +232,7 @@ main {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content:flex-start;
   padding: 0;
   list-style: none;
 }
