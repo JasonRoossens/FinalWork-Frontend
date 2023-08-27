@@ -137,25 +137,38 @@ export default {
     async fetchData() {
       try {
         const userId = localStorage.getItem('id');
-        const allPromise = Promise.all([
-        fetch('https://sneakpeek-backend.onrender.com/sneakers'),
-        fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`)
-        ]);
 
-        const [items, favorites] = await allPromise;
+        const requestToDo = [
+        fetch('https://sneakpeek-backend.onrender.com/sneakers')
+
+        ]
+        if (userId){
+          requestToDo.push(
+            fetch(`https://sneakpeek-backend.onrender.com/favorites/${userId}`)
+          )
+        }
+        const allPromise = Promise.all(requestToDo);
+        console.log('xxx requestToDo', requestToDo)
+        
+        const response = await allPromise;
         
 
-        const listOfItems = await items.json()
-        const listOfFavorites = await favorites.json()
+        const listOfItems = await response[0].json()
+
+
+        if (userId){
+          const listOfFavorites = await response[1].json()
 
         console.log(listOfItems, listOfFavorites)
 
-        listOfFavorites.forEach(favorite => {
-          const sneaker = listOfItems.find(item => item.id === favorite.id)
-          if (sneaker){
-               sneaker.favorite = true
-          }
-        })
+          listOfFavorites.forEach(favorite => {
+            const sneaker = listOfItems.find(item => item.id === favorite.id)
+            if (sneaker){
+                sneaker.favorite = true
+            }
+          })
+        }
+        
 
         this.items = listOfItems;
         console.log(listOfItems)
