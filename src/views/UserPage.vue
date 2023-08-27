@@ -47,12 +47,14 @@
       </div>
       <!-- Lightbox popup for edit form -->
       <div v-if="showEditPopup" class="lightbox">
+        
         <div class="lightbox-content">
           <form @submit.prevent="updateUser" class="edit-form">
             <!-- ... Form inputs ... -->
             <button type="submit" class="save-button">Save Changes</button>
+            <button @click="closeEditPopup" class="close-button">Close</button>
           </form>
-          <button @click="closeEditPopup" class="close-button">Close</button>
+          
         </div>
       </div>
       <!-- Display favorites -->
@@ -216,11 +218,12 @@ main {
 }
 
 .password-button {
-  background-color: #3498db;
-  color: white;
+  background-color: #c4d663;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
+  margin-left: 20px;
   cursor: pointer;
 }
 
@@ -275,10 +278,18 @@ p {
 }
 
 .edit-form {
-  background-color: #f9f9f9;
+  text-align: center;
+  margin: auto;
   border-radius: 10px;
   padding: 20px;
   margin-top: 30px;
+  width: 50%;
+}
+
+.lightbox{
+  margin: auto;
+  text-align: center;
+  padding-top: 30px;
 }
 
 .edit-button-container{
@@ -302,11 +313,21 @@ p {
 }
 
 .save-button {
-  background-color: #3498db;
+  background-color: #c4d663;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: red;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -330,5 +351,33 @@ p {
     margin-bottom: 20px;
   }
 }
-/* ... (your other styles) ... */
+@media (max-width: 767px) {
+  main {
+  padding: 0px;
+  color: white;
+}
+.edit-form {
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+}
+
+@media (max-width: 480px) {
+main {
+  padding: 0px;
+  color: white;
+}
+.edit-form {
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+}
 </style>

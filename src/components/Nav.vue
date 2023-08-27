@@ -174,14 +174,17 @@ x
 
 @media (max-width: 767px) {
   .hello_btn{
-    display: none;
+    
   }
   .logo {
   flex-grow: 1;
   text-align: center;
-  margin-right: 20%;
+  margin-right: -7%;
 }
 .login-btn{
+
+}
+.logout-btn{
   display: none;
 }
 }
@@ -203,7 +206,7 @@ x
 .logo-image {
   height: 30px;
   width: auto;
-  padding-left: 70px;
+  padding-left: 0px;
 }
 
 .nav_btn {
@@ -218,7 +221,7 @@ x
   padding: 0px 10px 0px 0px;
 }
 .login-btn{
-  display: none;
+  
 }
 .nav_hmbtn {
   font-family: 'LemonMilkRegular', sans-serif;
@@ -231,6 +234,9 @@ x
   text-transform: capitalize;
   padding: 0px 0px 0px 0px;
   margin-left: 10px;
+}
+.logout-btn{
+  display: none;
 }
 }
 </style>
