@@ -186,5 +186,11 @@ p {
     width: 100%;
   }
 }
+@media (max-width: 480px) {
+
+  .main{
+    padding: 0px;
+  }
+}
 
 </style>
