@@ -6,7 +6,7 @@
        
       <!-- Requirement -->
       <label for="email"><b>Email</b></label>
-      <input type="text" v-model="email" name="email" required>
+      <input type="email" v-model="email" name="email" required>
   
       <label for="psw"><b>Password</b></label>
       <input type="password" v-model="password" name="psw" required>
@@ -48,8 +48,9 @@ export default {
           },
           body: JSON.stringify(data),
         });
-        const responseData = await response.json();
+       
         if (response.ok) {
+           const responseData = await response.json();
           // Save user data to local storage
           localStorage.setItem('id', responseData.id);
           console.log(responseData.id)
@@ -67,6 +68,7 @@ export default {
           router.push('/');
         } else {
           // Set error message when login fails
+          console.log("error !!!!!!")
           this.errorMessage = 'Email or password is incorrect';
         }
       } catch (error) {

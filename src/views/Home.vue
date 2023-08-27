@@ -78,6 +78,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart} from '@fortawesome/free-regular-svg-icons';
 
+import router from '../router';
+
 library.add(fasHeart, farHeart);
 
 export default {
@@ -213,7 +215,9 @@ export default {
     async toggleFavorite(sneakerId, isAlreadyFavorite) {
       try {
         const userId = localStorage.getItem('id');
-
+        if (!userId){
+          router.push('/login');
+        }
         if (isAlreadyFavorite) {
           // Send a DELETE request to remove the sneaker from favorites
           const response = await fetch(
