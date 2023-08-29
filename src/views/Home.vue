@@ -97,12 +97,12 @@ export default {
       showAllSneakers: false,
     };
   },
-  /* created() {
+  created() {
     // Update countdown every second
     setInterval(() => {
       this.updateCountdowns();
     }, 1000);
-  }, */
+  },
   computed: {
     uniqueBrands() {
       // Compute unique brands from the items data
@@ -133,7 +133,7 @@ export default {
   mounted() {
     this.fetchData();
     this.updateCountdown();
-    // setInterval(this.updateCountdown, 1000);
+     setInterval(this.updateCountdown, 1000);
   },
   methods: {
     async fetchData() {

@@ -36,7 +36,7 @@ export default {
 
     <Navigation />
     <button @click="$router.push(`/`)" class="back-button">Back</button>
-    <div class="container">
+    <div class="detail-container">
       <div v-if="sneaker">
         <h1 class="title-detail">{{ sneaker.brand }} {{ sneaker.model }} {{ sneaker.name ? sneaker.name : ' ' }}</h1>
         <div class="sneaker-details">
@@ -67,6 +67,10 @@ export default {
   <div class="info-pair">
     <h3><strong>Release:</strong></h3>
     <p>{{ sneaker.releasedate }}</p>
+  </div>
+  <div class="info-pair">
+    <h3><strong>Buy at:</strong></h3>
+    <p>{{ sneaker.buyat ? sneaker.buyat : 'No info yet!'}}</p>
   </div>
   <div class="info-pair">
     <h3><strong>Price:</strong></h3>
@@ -104,7 +108,7 @@ export default {
   background-color: #0B0E0F;
 }
 
-.container {
+.detail-container {
   display: flex; /* Added to enable flex layout */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center items horizontally */
