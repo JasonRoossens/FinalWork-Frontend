@@ -181,6 +181,8 @@ export default {
   }
   .error-message {
   color: red;
-  margin-top: 10px;
+  margin-top: 3px;
+  margin-bottom: 15px;
+
 }
   </style>
