@@ -156,6 +156,18 @@ export default {
     async updateUser() {
       try {
         const userId = localStorage.getItem('id'); // Get the user ID from local storage
+        if (!this.editedUser.firstname) {
+      this.editedUser.firstname = this.user.firstname;
+    }
+    if (!this.editedUser.lastname) {
+      this.editedUser.lastname = this.user.lastname;
+    }
+    if (!this.editedUser.email) {
+      this.editedUser.email = this.user.email;
+    }
+    if (!this.editedUser.password) {
+      this.editedUser.password = this.user.password;
+    }
         const response = await fetch(`https://sneakpeek-backend.onrender.com/users/user/${userId}`, {
           method: 'PUT',
           headers: {
