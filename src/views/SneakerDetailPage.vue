@@ -174,7 +174,7 @@ p {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-  margin-top: 18%;
+  margin-top: 0%;
 }
 @media (max-width: 767px) {
   .sneaker-details {
@@ -196,6 +196,17 @@ p {
   .main{
     padding: 0px;
   }
+  .back-button {
+  background-color: #c4d663;
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-top: 10%;
 }
+}
+
 
 </style>
