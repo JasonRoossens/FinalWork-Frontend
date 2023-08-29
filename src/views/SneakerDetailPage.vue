@@ -1,9 +1,10 @@
 <script>
 import Navigation from '../components/Nav.vue';
+import Bottom from '../components/Foot.vue';
 
 export default {
   components: {
-    Navigation,
+    Navigation, Bottom
   },
   data() {
     return {
@@ -90,6 +91,7 @@ export default {
       </div>
     </div>
   </div>
+  <Bottom />
 </template>
   
 <style>

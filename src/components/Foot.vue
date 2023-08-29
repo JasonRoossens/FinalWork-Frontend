@@ -1,20 +1,28 @@
 <template>
     <div id="foot">
-        <div class="logo-botoom">
-        <img src="../assets/images/logo.png" alt="Logo" class="logo-image-bottom" />
-      </div>
+      <div class="logo-bottom">
+    <router-link to="/">
+      <img src="../assets/images/logo.png" alt="Logo" class="logo-image-bottom" />
+    </router-link>
+  </div>
 
       <div>
-        <button class="social-btn">
-        <router-link to=""><font-awesome-icon :icon="['fab', 'twitter']" /></router-link>
-      </button>
-      <button class="social-btn">
-        <router-link to=""><font-awesome-icon :icon="['fab', 'facebook']" /></router-link>
-      </button>
-      <button class="social-btn">
-        <router-link to=""><font-awesome-icon :icon="['fab', 'instagram']" /></router-link>
-      </button>
-      </div>
+  <button class="social-btn">
+    <a href="https://www.twitter.com" target="_blank">
+      <font-awesome-icon :icon="['fab', 'twitter']" />
+    </a>
+  </button>
+  <button class="social-btn">
+    <a href="https://www.facebook.com" target="_blank">
+      <font-awesome-icon :icon="['fab', 'facebook']" />
+    </a>
+  </button>
+  <button class="social-btn">
+    <a href="https://www.instagram.com" target="_blank">
+      <font-awesome-icon :icon="['fab', 'instagram']" />
+    </a>
+  </button>
+</div>
     </div>
   </template>
 

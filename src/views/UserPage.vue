@@ -75,15 +75,17 @@
       <p>Loading user data...</p>
     </div>
   </main>
+  <Bottom />
 </template>
 
 <script>
 import router from '../router';
 import Navigation from '../components/Nav.vue';
+import Bottom from '../components/Foot.vue';
 
 export default {
   components: {
-    Navigation,
+    Navigation, Bottom
   },
   data() {
     return {

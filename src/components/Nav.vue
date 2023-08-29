@@ -1,9 +1,11 @@
 <template>
   <div id="nav">
     <router-link to="/" class="nav_hmbtn">Home</router-link>
-    <div class="logo">
-      <img src="../assets/images/logo.png" alt="Logo" class="logo-image" />
-    </div>
+    <router-link to="/">
+  <div class="logo">
+    <img src="../assets/images/logo.png" alt="Logo" class="logo-image" />
+  </div>
+</router-link>
 
     <!-- Show user's firstname and "Logout" button if logged in -->
     <div v-if="isLoggedIn">
