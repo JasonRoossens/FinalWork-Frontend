@@ -174,6 +174,7 @@ p {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  margin-top: 18%;
 }
 @media (max-width: 767px) {
   .sneaker-details {
